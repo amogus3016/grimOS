@@ -5,22 +5,22 @@
 DRIVE='/dev/sda'
 
 # Hostname of the installed machine.
-HOSTNAME='host100'
+HOSTNAME='mcdonald'
 
 # Encrypt everything (except /boot).  Leave blank to disable.
-ENCRYPT_DRIVE='TRUE'
+ENCRYPT_DRIVE=
 
 # Passphrase used to encrypt the drive (leave blank to be prompted).
-DRIVE_PASSPHRASE='a'
+DRIVE_PASSPHRASE=
 
 # Root password (leave blank to be prompted).
-ROOT_PASSWORD='a'
+ROOT_PASSWORD=
 
 # Main user to create (by default, added to wheel group, and others).
-USER_NAME='user'
+USER_NAME='grimos'
 
 # The main user's password (leave blank to be prompted).
-USER_PASSWORD='a'
+USER_PASSWORD=
 
 # System timezone.
 TIMEZONE='America/New_York'
@@ -34,13 +34,13 @@ KEYMAP='us'
 
 # Choose your video driver
 # For Intel
-VIDEO_DRIVER="i915"
+# VIDEO_DRIVER="i915"
 # For nVidia
 #VIDEO_DRIVER="nouveau"
 # For ATI
 #VIDEO_DRIVER="radeon"
 # For generic stuff
-#VIDEO_DRIVER="vesa"
+VIDEO_DRIVER="vesa"
 
 # Wireless device, leave blank to not use wireless and use DHCP instead.
 WIRELESS_DEVICE="wlan0"
@@ -51,7 +51,7 @@ setup() {
     local boot_dev="$DRIVE"1
     local lvm_dev="$DRIVE"2
 
-    echo 'Creating partitions'
+    echo '==> Setting up disk'
     partition_drive "$DRIVE"
 
     if [ -n "$ENCRYPT_DRIVE" ]
@@ -76,16 +76,16 @@ setup() {
     echo 'Setting up LVM'
     setup_lvm "$lvm_part" vg00
 
-    echo 'Formatting filesystems'
+    echo '==> Formatting filesystems'
     format_filesystems "$boot_dev"
 
-    echo 'Mounting filesystems'
+    echo '==> Mounting filesystems'
     mount_filesystems "$boot_dev"
 
-    echo 'Installing base system'
+    echo '==> Installing base system'
     install_base
 
-    echo 'Chrooting into installed system to continue setup...'
+    echo '==> Chrooting into installed system to continue setup...'
     cp $0 /mnt/setup.sh
     arch-chroot /mnt ./setup.sh chroot
 
