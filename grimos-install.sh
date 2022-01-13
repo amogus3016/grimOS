@@ -396,16 +396,16 @@ install_packages() {
     packages+=' xorg-apps xorg-server xorg-xinit xterm'
 
     # Slim login manager
-    packages+=' slim archlinux-themes-slim'
+    # packages+=' slim archlinux-themes-slim'
 
     # Fonts
-    packages+=' ttf-dejavu ttf-liberation'
+    # packages+=' ttf-dejavu ttf-liberation'
 
     # On Intel processors
     packages+=' intel-ucode'
 
     # For laptops
-    packages+=' xf86-input-synaptics'
+    # packages+=' xf86-input-synaptics'
 
     # Extra packages for tc4200 tablet
     #packages+=' ipw2200-fw xf86-input-wacom'
